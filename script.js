@@ -391,9 +391,9 @@ function applyDepth() {
 
     const x2 = x1 * cosY + z1 * sinY;
     const z2 = -x1 * sinY + z1 * cosY;
-    const y2 = y1;
+    const y2 = clamp(y1, -1, 1);
 
-    const depth = (z2 + 1) / 2;
+    const depth = clamp((z2 + 1) / 2, 0, 1);
     const scale = 0.65 + depth * 0.5;
     const opacity = 0.35 + depth * 0.65;
 
