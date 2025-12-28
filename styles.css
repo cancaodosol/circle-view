@@ -149,6 +149,19 @@ body {
   filter: saturate(1.05);
 }
 
+.orb-face--action {
+  background: linear-gradient(135deg, #f8e2c9, #d7eef2);
+  display: grid;
+  place-items: center;
+}
+
+.orb-action {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #2a2520;
+}
+
 .orb-label {
   position: absolute;
   inset: auto 0 0 0;

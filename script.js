@@ -15,306 +15,13 @@ const state = {
   dragDistance: 0,
   downItem: null,
   data: [],
+  initialData: [],
+  collections: {},
+  currentKey: "main",
 };
 
-const DATA = [
-  {
-    title: 'UKEHI TALK',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2025/03/アートボード-19-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/zinja-ch',
-  },
-  {
-    title: 'むすび大学',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2025/03/アートボード-3-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/ura-musubi',
-  },
-  {
-    title: 'ちこの部屋',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2025/03/youtubeサムネ-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/tico-room',
-  },
-  {
-    title: 'おうち神社化計画',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/12/317594723_852613609207405_3900543237544817121_n-1-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/ouchi',
-  },
-  {
-    title: 'めっちゃおもろい日本書紀',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2023/08/367637144_3145989159040927_2516318695754178178_n-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/nihonsyoki',
-  },
-  {
-    title: '古事記を読もう！',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/古事記を読もう-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/kojiki-course',
-  },
-  {
-    title: '神社参拝の心得',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/アートボード-2-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/shrine-course',
-  },
-  {
-    title: '全国の神社を語る',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/全国の神社を語る3-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/public-recording',
-  },
-  {
-    title: '学校で教えない歴史の真実',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2023/09/367648265_1138333690690066_3356032573003333309_n-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/truehistory',
-  },
-  {
-    title: '心あたたまる日本の古典',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/アートボード-4-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/classic',
-  },
-  {
-    title: '大和魂がめざめる国学',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/08/202408新コーナーサムネ-2-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/kokugaku',
-  },
-  {
-    title: '論語ラジオゼミ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/president-thumb-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/president-radio',
-  },
-  {
-    title: '心を強くする陽明学',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/アートボード-6-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/yangmingism-course',
-  },
-  {
-    title: 'ちっちゃな一禅',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/311235330_1273076033449059_5468256491322301189_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/nishino',
-  },
-  {
-    title: '仏教講座',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/アートボード-5-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/buddhism-course',
-  },
-  {
-    title: '祓魔の道',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/08/202408新コーナーサムネ-5-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/futsuma',
-  },
-  {
-    title: 'LEGENDS 先人の知恵',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/09/202408新コーナーサムネ-8-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/legends',
-  },
-  {
-    title: '思考力を磨く西洋哲学',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/アートボード-7-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/philosophy',
-  },
-  {
-    title: '世界がわかるキリスト教講座',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/アートボード-8-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/christianity',
-  },
-  {
-    title: 'おうち食養生',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/06/d74f8547-a6cc-480b-8804-7597a215697f-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/shokuyojo',
-  },
-  {
-    title: 'ゆにわのおせちいらっしゃい！',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/ゆにわのおせち-いらっしゃい-2-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/osechi',
-  },
-  {
-    title: 'ちこのまかない・いらっしゃい',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2023/03/338405308_1394309364726859_4857769499586531937_n-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/makanai',
-  },
-  {
-    title: 'ポラリス診療所ブログ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/03/A5B4B61B-1F97-403B-AD57-8D7BA2D2B3BB-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/polaris-blog',
-  },
-  {
-    title: '体壁（タイヘキ）',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/体壁コーナー-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/taiheki-course',
-  },
-  {
-    title: 'ゆるゆる神体法',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/03/1-1-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/shintaiho',
-  },
-  {
-    title: 'ゆるゆるボディワーク',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/ゆるゆるボディワーク-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/bodywork',
-  },
-  {
-    title: 'ゆにわの子育て',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/313782112_825012032034153_8215898970362075790_n-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/kosodate',
-  },
-  {
-    title: 'ゆにわ流レンアイ談義 セイなるゆにわ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2023/12/403401984_867602138392361_7729824514339104981_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/holy',
-  },
-  {
-    title: '易経講座',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/アートボード-10-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/yijing-course',
-  },
-  {
-    title: 'フォーチュンサロン',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/花えり-タロット-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/fortune',
-  },
-  {
-    title: '六龍法占い',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/02/六龍法占い-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/rokuryu-course',
-  },
-  {
-    title: 'ドラゴンノートワーク',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/dragon-note-work-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/dragonnote-course',
-  },
-  {
-    title: 'ココロが整う魔法のワーク',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/魔法のワーク-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/magic',
-  },
-  {
-    title: 'ワールド・オーダー',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/08/202408新コーナーサムネ-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/world-order',
-  },
-  {
-    title: 'かむながら経営道',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/09/202408新コーナーサムネ-7-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/keieido',
-  },
-  {
-    title: 'ニュース解説室',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/311051964_3265473057001962_785976292004761679_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/news',
-  },
-  {
-    title: 'はたを楽にする仕事のコツ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/315884665_798665094527155_5973567545201602730_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/work',
-  },
-  {
-    title: '寿社長のわざわい転じて福禄寿',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/314447726_457610629787144_6077845771387478548_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/kotobuki',
-  },
-  {
-    title: '大人の大逆転勉強法',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/313879945_5638843819513557_2234417352685242034_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/study',
-  },
-  {
-    title: 'マネーワールド',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/MoneyWorld-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/money-world',
-  },
-  {
-    title: 'メンタルトレーニング',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/313216794_792964611782267_2922362945766797848_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/mental',
-  },
-  {
-    title: 'エンタメから時代を紐解く',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/313929349_989509439118348_4259332510741996131_n-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/entertainment',
-  },
-  {
-    title: 'ゆにわショッピング',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2025/11/uniwa_shopping-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/uniwa-shopping',
-  },
-  {
-    title: 'ドキュメンタリー',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/ドキュメンタリーゆにわ-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/documentary',
-  },
-  {
-    title: '旬な情報を発信！ゆにわタイムズ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/20191116-DSC06030-2-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/times',
-  },
-  {
-    title: 'イベントレポート',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/イベントレポート-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/event-report',
-  },
-  {
-    title: '北極老人を語る',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/03/429633315_1152583675733076_1691291104431993515_n-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/rozin',
-  },
-  {
-    title: '御神業を語る会ハイライト',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/09/御神業を語る会サムネ-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/kataru',
-  },
-  {
-    title: 'ゆにわのIDOBATA☕ティータイム',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/272884482_817498462769841_3499330525798125348_n-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/idobata',
-  },
-  {
-    title: '北極老人随聞記',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/themes/uniwajuku2025/img/course/zuimonki-thumb.jpg',
-    link: 'https://online.uniwa-juku.com/zuimonki',
-  },
-  {
-    title: '社長ブログ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/themes/uniwajuku2025/img/course/president.jpg?ver=20240114',
-    link: 'https://online.uniwa-juku.com/president/?type=blog',
-  },
-  {
-    title: '領域外の世界',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2023/01/ryouikigai-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/nitta',
-  },
-  {
-    title: '星と伝説',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/01/星と伝説-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/%e6%98%9f%e3%81%a8%e4%bc%9d%e8%aa%ac',
-  },
-  {
-    title: 'セカンドライフ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/second-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/second-life',
-  },
-  {
-    title: 'Y氏の対談',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/Y氏の対談-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/mr-y',
-  },
-  {
-    title: '神宿る身体づくりの秘訣',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/11/taiheki-4-400x225.jpeg',
-    link: 'https://online.uniwa-juku.com/course/kamiyadoru',
-  },
-  {
-    title: 'ゆにゾンの声',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/09/ゆにゾンの声サムネ-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/uniwa-report',
-  },
-  {
-    title: '突撃！記者クラブ',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2024/03/突撃！記者クラブ-1-400x225.png',
-    link: 'https://online.uniwa-juku.com/course/press-club',
-  },
-  {
-    title: 'ゆにわ塾の活用法',
-    url: 'https://online.uniwa-juku.com/wp/wp-content/uploads/2022/10/295853846_818357049588950_8030389015883078295_n-400x225.jpg',
-    link: 'https://online.uniwa-juku.com/course/use',
-  },
-];
-
+const DATA_URL = "data.json";
+const DEFAULT_COLLECTION = "main";
 const deg = 180 / Math.PI;
 const friction = 0.94;
 const dragSpeed = 0.35;
@@ -334,6 +41,9 @@ function buildItems(data) {
   const goldenAngle = Math.PI * (3 - Math.sqrt(5));
 
   data.forEach((entry, index) => {
+    const hasSwitch = Boolean(entry.switchTo);
+    const hasImage = Boolean(entry.url);
+    const hasLink = Boolean(entry.link);
     const y = 1 - (index + 0.5) * (2 / count);
     const radius = Math.sqrt(1 - y * y);
     const theta = goldenAngle * index;
@@ -344,31 +54,46 @@ function buildItems(data) {
 
     const item = document.createElement("a");
     item.className = "orb-item";
-    item.href = entry.link || "#";
-    item.target = "_blank";
-    item.rel = "noopener";
+    if (hasSwitch) {
+      item.dataset.switchTo = entry.switchTo;
+    }
+    if (!hasSwitch && hasLink) {
+      item.href = entry.link || "#";
+      item.target = "_blank";
+      item.rel = "noopener";
+    } else {
+      item.href = "#";
+    }
     item.setAttribute("role", "listitem");
     item.setAttribute("aria-label", entry.title);
 
     const face = document.createElement("div");
     face.className = "orb-face";
 
-    const img = document.createElement("img");
-    img.src = entry.url;
-    img.alt = entry.title;
-    img.loading = "lazy";
+    if (!hasImage) {
+      face.classList.add("orb-face--action");
+      const actionLabel = document.createElement("div");
+      actionLabel.className = "orb-action";
+      actionLabel.textContent = entry.title;
+      face.appendChild(actionLabel);
+    } else {
+      const img = document.createElement("img");
+      img.src = entry.url;
+      img.alt = entry.title;
+      img.loading = "lazy";
 
-    img.addEventListener("error", () => {
-      item.classList.add("is-broken");
-      face.innerHTML = "Image";
-    });
+      img.addEventListener("error", () => {
+        item.classList.add("is-broken");
+        face.innerHTML = "Image";
+      });
 
-    const label = document.createElement("div");
-    label.className = "orb-label";
-    label.textContent = entry.title;
+      const label = document.createElement("div");
+      label.className = "orb-label";
+      label.textContent = entry.title;
 
-    face.appendChild(img);
-    face.appendChild(label);
+      face.appendChild(img);
+      face.appendChild(label);
+    }
     item.appendChild(face);
 
     const px = x * state.radius;
@@ -432,6 +157,34 @@ function shuffle(array) {
   return array;
 }
 
+function resolveCollection(key) {
+  const collection = state.collections[key];
+  if (!Array.isArray(collection)) {
+    return [];
+  }
+  return collection;
+}
+
+function setActiveCollection(key, options = {}) {
+  const data = resolveCollection(key);
+  const shouldShuffle = options.shuffle && key === DEFAULT_COLLECTION;
+  let nextData = data;
+
+  if (shouldShuffle) {
+    state.initialData = shuffle([...data]);
+    nextData = state.initialData;
+  } else if (key === DEFAULT_COLLECTION && state.initialData.length) {
+    nextData = state.initialData;
+  } else {
+    nextData = [...data];
+  }
+
+  state.currentKey = key;
+  state.data = nextData;
+  buildItems(state.data);
+  applyDepth();
+}
+
 function animate() {
   if (!state.isDragging) {
     state.rotY += state.velocityX;
@@ -482,8 +235,11 @@ function onPointerUp(event) {
     stage.releasePointerCapture(event.pointerId);
   }
   if (state.downItem && state.dragDistance < 6) {
+    const switchTo = state.downItem.dataset.switchTo;
     const href = state.downItem.getAttribute("href");
-    if (href && href !== "#") {
+    if (switchTo) {
+      setActiveCollection(switchTo);
+    } else if (href && href !== "#") {
       const newWindow = window.open(href, "_blank", "noopener");
       if (newWindow) {
         newWindow.opener = null;
@@ -493,10 +249,25 @@ function onPointerUp(event) {
   state.downItem = null;
 }
 
+async function loadCollections() {
+  const response = await fetch(DATA_URL);
+  if (!response.ok) {
+    throw new Error("Failed to load data.json");
+  }
+  const payload = await response.json();
+  if (!payload || typeof payload !== "object") {
+    throw new Error("Invalid data.json");
+  }
+  return payload.collections || {};
+}
+
 async function init() {
-  state.data = shuffle([...DATA]);
-  buildItems(state.data);
-  applyDepth();
+  try {
+    state.collections = await loadCollections();
+    setActiveCollection(DEFAULT_COLLECTION, { shuffle: true });
+  } catch (error) {
+    sphere.innerHTML = "<p>Failed to load data.json</p>";
+  }
 
   animate();
 }
