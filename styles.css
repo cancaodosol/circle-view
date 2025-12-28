@@ -98,7 +98,7 @@ body {
 
 .stage {
   position: relative;
-  height: min(70vh, 680px);
+  height: min(95vh, 1280px);
   min-height: 420px;
   border-radius: 28px;
   background: linear-gradient(140deg, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.35));
