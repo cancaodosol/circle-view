@@ -14,6 +14,7 @@ const state = {
   radius: 360,
   dragDistance: 0,
   downItem: null,
+  data: [],
 };
 
 const DATA = [
@@ -423,6 +424,14 @@ function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
 }
 
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 function animate() {
   if (!state.isDragging) {
     state.rotY += state.velocityX;
@@ -485,7 +494,8 @@ function onPointerUp(event) {
 }
 
 async function init() {
-  buildItems(DATA);
+  state.data = shuffle([...DATA]);
+  buildItems(state.data);
   applyDepth();
 
   animate();
@@ -498,8 +508,8 @@ stage.addEventListener("pointerleave", onPointerUp);
 
 window.addEventListener("resize", () => {
   state.radius = getRadius();
-  if (DATA.length) {
-    buildItems(DATA);
+  if (state.data.length) {
+    buildItems(state.data);
   }
 });
 
