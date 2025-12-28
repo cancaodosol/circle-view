@@ -12,6 +12,8 @@ const state = {
   positions: [],
   items: [],
   radius: 360,
+  dragDistance: 0,
+  downItem: null,
 };
 
 const DATA = [
@@ -342,6 +344,8 @@ function buildItems(data) {
     const item = document.createElement("a");
     item.className = "orb-item";
     item.href = entry.link || "#";
+    item.target = "_blank";
+    item.rel = "noopener";
     item.setAttribute("role", "listitem");
     item.setAttribute("aria-label", entry.title);
 
@@ -443,6 +447,8 @@ function onPointerDown(event) {
   state.lastY = event.clientY;
   state.velocityX = 0;
   state.velocityY = 0;
+  state.dragDistance = 0;
+  state.downItem = event.target.closest(".orb-item");
   stage.setPointerCapture(event.pointerId);
 }
 
@@ -451,6 +457,7 @@ function onPointerMove(event) {
   const deltaX = event.clientX - state.lastX;
   const deltaY = event.clientY - state.lastY;
 
+  state.dragDistance += Math.hypot(deltaX, deltaY);
   state.rotY += deltaX * dragSpeed;
   state.rotX -= deltaY * dragSpeed;
   state.velocityX = deltaX * 0.08;
@@ -465,6 +472,16 @@ function onPointerUp(event) {
   if (stage.hasPointerCapture(event.pointerId)) {
     stage.releasePointerCapture(event.pointerId);
   }
+  if (state.downItem && state.dragDistance < 6) {
+    const href = state.downItem.getAttribute("href");
+    if (href && href !== "#") {
+      const newWindow = window.open(href, "_blank", "noopener");
+      if (newWindow) {
+        newWindow.opener = null;
+      }
+    }
+  }
+  state.downItem = null;
 }
 
 async function init() {
